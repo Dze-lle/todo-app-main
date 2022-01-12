@@ -4,6 +4,8 @@
     /* primary colors */
     --bright-blue: hsl(220, 98%, 61%);
     --check-background: linear-gradient hsl(192, 100%, 67%) to hsl(280, 87%, 65%);
+    --check-background-1st: #47DAFF; 
+    --check-background-2st: #C058F3;
 
     /* light theme */
     --lt-very-light-gray: hsl(0, 0%, 98%);
@@ -38,8 +40,6 @@ body {
     font-size: 18px;
     margin: 0px;
     padding: 0px;
-    /* background-color: #000;
-    color: #fff; */
 }
 
 /* contenido general */
@@ -63,13 +63,51 @@ body {
     align-items: center;
 }
 
+.container > .container__todo > .header__todo h1 {
+    text-transform: uppercase;
+    letter-spacing: .75rem;
+}
+
 .container > .container__todo > form > .input__todo {
     display: flex;
+    align-items: center;
+    font-size: 9px;
+    width: 327px;
+    height: 48px;
+    background-color: #000;
+    border-radius: .25rem;   
+}
+
+:is(.check__icon, .checked) {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    margin-left: 20px;
+    margin-right: 13px;
+    border-radius: 50%;
+}
+
+.check__icon {
+    border: 1px solid #fff;
+}
+
+.checked {
+    background: linear-gradient(140deg, var(--check-background-1st), var(--check-background-2st));
+}
+
+.checked img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .container > .container__todo > form > .input__todo > input {
     font-family: inherit;
     background-color: transparent;
     border: none;
+    outline: none;
+    color: #fff;
+    width: 75%;
 }
 
