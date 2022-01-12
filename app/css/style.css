@@ -52,9 +52,9 @@ body {
     height: 613px;
     width: 327px;
     position: absolute;
-    top: 50%;
+    top: 20%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -20%);
 }
 
 .container > .container__todo > .header__todo {
@@ -65,26 +65,11 @@ body {
 
 .container > .container__todo > .header__todo h1 {
     text-transform: uppercase;
-    letter-spacing: .75rem;
+    letter-spacing: .70rem;
 }
 
 .container > .container__todo > form > .input__todo {
-    display: flex;
-    align-items: center;
-    font-size: 9px;
-    width: 327px;
-    height: 48px;
-    background-color: #000;
     border-radius: .25rem;   
-}
-
-:is(.check__icon, .checked) {
-    position: relative;
-    height: 20px;
-    width: 20px;
-    margin-left: 20px;
-    margin-right: 13px;
-    border-radius: 50%;
 }
 
 .check__icon {
@@ -95,13 +80,6 @@ body {
     background: linear-gradient(140deg, var(--check-background-1st), var(--check-background-2st));
 }
 
-.checked img {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .container > .container__todo > form > .input__todo > input {
     font-family: inherit;
     background-color: transparent;
@@ -109,5 +87,77 @@ body {
     outline: none;
     color: #fff;
     width: 75%;
+    caret-color: var(--bright-blue);
+    /* font-size: 12px; */
 }
+
+.container > .container__todo > form > ul {
+    list-style: none;
+    padding: 0px;
+    margin: 16px 0px 0px 0px;
+}
+
+.container > .container__todo > form > ul > li:first-child {
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+}
+
+.container > .container__todo > form > ul > li {
+    position: relative;
+    color: #fff;
+    font-size: 12px;
+    border: 1px solid rgba(238, 232, 232, 0.125);
+}
+
+.container > .container__todo > form > ul > li > span:nth-child(2) {
+    cursor: pointer;
+}
+
+.container > .container__todo > form > ul > li > i {
+    position: absolute;
+    left: 93%; 
+    cursor: pointer;
+}
+
+.container > .container__todo > form > ul > li > i > img {
+    height: 12px;
+    width: 12px;
+}
+
+.container > .container__todo > form > .list__description {
+    font-size: 12px;
+    justify-content: space-between;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    color: #fff;
+    padding: 0 20px;
+}
+
+/* elmentos que tienen las mismas propiedades */
+/* input__todo and li */
+:is(.container > .container__todo > form > .input__todo, .container > .container__todo > form > ul > li, .list__description) {
+    display: flex;
+    align-items: center;
+    width: 327px;
+    height: 48px;
+    background-color: #000; 
+}
+
+:is(.check__icon, .checked) {
+    position: relative;
+    height: 20px;
+    width: 20px;
+    margin-left: 20px;
+    margin-right: 13px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+:is(.checked img, .container > .container__todo > form > ul > li > i > img) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 
