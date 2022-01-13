@@ -20,8 +20,8 @@
     --dt-light-grayish-blue: hsl(234, 39%, 85%);
     --dt-light-grayish-blue-hover: hsl(236, 33%, 92%);
     --dt-dark-grayish-blue: hsl(234, 11%, 52%);
-    --dt-very-dark-grayish-blue: hsl(233, 14%, 35%);
-    --dt-very-dark-grayish-blue: hsl(237, 14%, 26%);
+    --dt-very-dark-grayish-blue-first: hsl(233, 14%, 35%);
+    --dt-very-dark-grayish-blue-second: hsl(237, 14%, 26%);
 }
 
 html {
@@ -42,10 +42,20 @@ body {
     padding: 0px;
 }
 
+a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
+
 /* contenido general */
 .container {
     position: relative;
     height: 100vh;
+    background-color: var(--dt-very-dark-blue);
+}
+
+.container > .container__image {
+    background-image: url('/app/images/bg-mobile-dark.jpg');
+    background-repeat: no-repeat;
+    background-size: auto;
+    height: 100%;
 }
 
 .container > .container__todo {
@@ -66,6 +76,7 @@ body {
 .container > .container__todo > .header__todo h1 {
     text-transform: uppercase;
     letter-spacing: .70rem;
+    color: var(--dt-light-grayish-blue);
 }
 
 .container > .container__todo > form > .input__todo {
@@ -73,7 +84,7 @@ body {
 }
 
 .check__icon {
-    border: 1px solid #fff;
+    border: 1px solid var(--dt-very-dark-grayish-blue-second);
 }
 
 .checked {
@@ -85,10 +96,9 @@ body {
     background-color: transparent;
     border: none;
     outline: none;
-    color: #fff;
     width: 75%;
     caret-color: var(--bright-blue);
-    /* font-size: 12px; */
+    font-size: 13px;
 }
 
 .container > .container__todo > form > ul {
@@ -103,14 +113,14 @@ body {
 }
 
 .container > .container__todo > form > ul > li {
-    position: relative;
-    color: #fff;
     font-size: 12px;
-    border: 1px solid rgba(238, 232, 232, 0.125);
+    position: relative;
+    border-bottom: 1px solid var(--dt-very-dark-grayish-blue-second);
+    height: 52px !important;
 }
 
-.container > .container__todo > form > ul > li > span:nth-child(2) {
-    cursor: pointer;
+.container > .container__todo > form > ul > li > a {
+    font-weight: bold;
 }
 
 .container > .container__todo > form > ul > li > i {
@@ -129,18 +139,39 @@ body {
     justify-content: space-between;
     border-bottom-left-radius: .25rem;
     border-bottom-right-radius: .25rem;
-    color: #fff;
     padding: 0 20px;
+}
+
+.container > .container__todo > form > .list__states {
+    margin-top: 16px;
+    border-radius: .25rem;
+    font-size: 15px;
+    justify-content: center;
+}
+
+.container > .container__todo > form > .list__states > a {
+    color: var(--dt-very-dark-grayish-blue-first);
+}
+
+.container > .container__todo > form > .list__states > a:nth-child(2) {
+    margin: 0px 20px;
+}
+
+.container > .container__todo h4 {
+    font-size: 13px;
+    text-align: center;
+    margin: 44px 0px 0px 0px;
+    color: var(--dt-very-dark-grayish-blue-first);
 }
 
 /* elmentos que tienen las mismas propiedades */
 /* input__todo and li */
-:is(.container > .container__todo > form > .input__todo, .container > .container__todo > form > ul > li, .list__description) {
+:is(.container > .container__todo > form > .input__todo, .container > .container__todo > form > ul > li, .list__description, .list__states) {
     display: flex;
     align-items: center;
     width: 327px;
     height: 48px;
-    background-color: #000; 
+    background-color: var(--dt-very-dark-desaturated-blue);
 }
 
 :is(.check__icon, .checked) {
@@ -159,5 +190,19 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+/* ligth theme  */
+.container.light-theme {
+    background-color: var(--lt-very-light-grayish-blue);
+}
+.container.light-theme > .container__image {
+    background-image: url('/app/images/bg-mobile-light.jpg');
+}
+.container.light-theme > .container__todo > .header__todo > h1 {
+    color: var(--dt-light-grayish-blue);
+}
+:is(.container.light-theme > .container__todo > form > .input__todo, .container.light-theme > .container__todo > form > ul > li, .container.light-theme > .container__todo > form > .list__description, .container.light-theme > .container__todo > form > .list__states) {
+    background-color: var(--lt-very-light-gray);
+}  
 
 
