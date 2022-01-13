@@ -48,6 +48,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 .container {
     position: relative;
     height: 100vh;
+    width: 100vw;
     background-color: var(--dt-very-dark-blue);
 }
 
@@ -59,8 +60,9 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 }
 
 .container > .container__todo {
-    height: 613px;
-    width: 327px;
+    width: 100%;
+    min-width: 376px;
+    padding: 0px 22px;
     position: absolute;
     top: 20%;
     left: 50%;
@@ -99,6 +101,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     width: 75%;
     caret-color: var(--bright-blue);
     font-size: 13px;
+    color: var(--dt-light-grayish-blue);
 }
 
 .container > .container__todo > form > ul {
@@ -121,6 +124,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 
 .container > .container__todo > form > ul > li > a {
     font-weight: bold;
+    color: var(--dt-light-grayish-blue);
 }
 
 .container > .container__todo > form > ul > li > i {
@@ -149,32 +153,40 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     justify-content: center;
 }
 
-.container > .container__todo > form > .list__states > a {
+:is(.container a, 
+    .container .list__description span) {
     color: var(--dt-very-dark-grayish-blue-first);
+}
+
+.container a:hover {
+    color: var(--dt-light-grayish-blue-hover);
+    animation: 750ms ease-in;
 }
 
 .container > .container__todo > form > .list__states > a:nth-child(2) {
     margin: 0px 20px;
 }
 
-.container > .container__todo h4 {
+.container > .container__todo > h4 {
     font-size: 13px;
     text-align: center;
     margin: 44px 0px 0px 0px;
-    color: var(--dt-very-dark-grayish-blue-first);
+    color: var(--dt-very-dark-grayish-blue-first)!important;    
 }
 
 /* elmentos que tienen las mismas propiedades */
 /* input__todo and li */
-:is(.container > .container__todo > form > .input__todo, .container > .container__todo > form > ul > li, .list__description, .list__states) {
+:is(.container > .container__todo > form > .input__todo, 
+    .container > .container__todo > form > ul > li, 
+    .list__description, .list__states) {
     display: flex;
     align-items: center;
-    width: 327px;
     height: 48px;
     background-color: var(--dt-very-dark-desaturated-blue);
 }
 
-:is(.check__icon, .checked) {
+:is(.check__icon, 
+    .checked) {
     position: relative;
     height: 20px;
     width: 20px;
@@ -184,7 +196,8 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     cursor: pointer;
 }
 
-:is(.checked img, .container > .container__todo > form > ul > li > i > img) {
+:is(.checked img, 
+    .container > .container__todo > form > ul > li > i > img) {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -195,14 +208,83 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 .container.light-theme {
     background-color: var(--lt-very-light-grayish-blue);
 }
+
 .container.light-theme > .container__image {
     background-image: url('/app/images/bg-mobile-light.jpg');
 }
+
 .container.light-theme > .container__todo > .header__todo > h1 {
-    color: var(--dt-light-grayish-blue);
+    color: var(--lt-very-light-gray);
 }
-:is(.container.light-theme > .container__todo > form > .input__todo, .container.light-theme > .container__todo > form > ul > li, .container.light-theme > .container__todo > form > .list__description, .container.light-theme > .container__todo > form > .list__states) {
+
+.container.light-theme > .container__todo > form > ul > li {
+    border-bottom: 1px solid var(--lt-light-grayish-blue);
+}
+
+.container.light-theme .check__icon {
+    border: 1px solid var(--lt-light-grayish-blue);
+}
+
+.container.light-theme input {
+    color: var(--dt-very-dark-grayish-blue-second) !important;
+}
+
+.container.light-theme h4 {
+    color: var(--lt-dark-grayish-blue) !important; 
+}
+
+.container.light-theme ul li a {
+    color: var(--lt-very-dark-grayish-blue) !important;
+    opacity: .88 !important;
+} 
+
+.container.light-theme a:hover {
+    color: var(--lt-very-dark-grayish-blue);
+    animation: 750ms ease-in;
+}
+
+:is(.container.light-theme a,
+    .container.light-theme span) {
+    color: var(--lt-dark-grayish-blue);
+}
+
+:is(.container.light-theme > .container__todo > form > .input__todo, 
+    .container.light-theme > .container__todo > form > ul > li, 
+    .container.light-theme > .container__todo > form > .list__description, 
+    .container.light-theme > .container__todo > form > .list__states) {
     background-color: var(--lt-very-light-gray);
-}  
+} 
 
+/* mayor e igual a 376px  */
+@media (min-width: 376px) {
 
+    .container > .container__todo {
+        max-width: calc(540px + 44px);
+    }
+
+    :is(.container > .container__todo > form > ul > li, 
+        .container > .container__todo > form > .input__todo > input) {
+        font-size: 17px;
+    }
+
+    .container .container__image {
+        background-image: url('/app/images/bg-desktop-dark.jpg');
+    }
+
+    .container.light-theme .container__image {
+        background-image: url('/app/images/bg-desktop-light.jpg');
+    }
+
+    :is(.container > .container__todo > form > .input__todo, 
+    .container > .container__todo > form > ul > li, 
+    .list__description, .list__states) {
+        height: 64px !important;
+    }
+
+    :is(.container > .container__todo > form > .list__description,
+    .container > .container__todo > form > .list__states,
+    .container.light-theme > .container__todo > form > .list__description, 
+    .container.light-theme > .container__todo > form > .list__states) {
+        display: none;
+    }
+}
