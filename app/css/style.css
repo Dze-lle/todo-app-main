@@ -53,7 +53,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 }
 
 .container > .container__image {
-    background-image: url('/app/images/bg-mobile-dark.jpg');
+    background-image: url(/app/images/bg-mobile-dark.jpg);
     background-repeat: no-repeat;
     background-size: auto;
     height: 100%;
@@ -214,7 +214,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 }
 
 .container.light-theme > .container__image {
-    background-image: url('/app/images/bg-mobile-light.jpg');
+    background-image: url(/app/images/bg-mobile-light.jpg);
 }
 
 .container.light-theme > .container__todo > .header__todo > h1 {
@@ -272,7 +272,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     }
 
     .container .container__image {
-        background-image: url('/app/images/bg-desktop-dark.jpg');
+        background-image: url(/app/images/bg-desktop-dark.jpg);
     }
 
     .container > .container__todo > form > .desktop__states {
@@ -291,7 +291,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     }
 
     .container.light-theme .container__image {
-        background-image: url('/app/images/bg-desktop-light.jpg');
+        background-image: url(/app/images/bg-desktop-light.jpg);
     }
     
     .container.light-theme > .container__todo > form > .desktop__states {
