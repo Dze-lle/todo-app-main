@@ -174,6 +174,10 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     color: var(--dt-very-dark-grayish-blue-first)!important;    
 }
 
+.container > .container__todo > form > .desktop__states {
+    display: none;
+}
+
 /* elmentos que tienen las mismas propiedades */
 /* input__todo and li */
 :is(.container > .container__todo > form > .input__todo, 
@@ -255,9 +259,9 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     background-color: var(--lt-very-light-gray);
 } 
 
+
 /* mayor e igual a 376px  */
 @media (min-width: 376px) {
-
     .container > .container__todo {
         max-width: calc(540px + 44px);
     }
@@ -271,8 +275,27 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
         background-image: url('/app/images/bg-desktop-dark.jpg');
     }
 
+    .container > .container__todo > form > .desktop__states {
+        font-size: 12px;
+        background-color: var(--dt-very-dark-desaturated-blue);
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0rem 1.175rem;
+        color: var(--dt-very-dark-grayish-blue-first);
+    }
+
+    .container > .container__todo > form > .desktop__states > .states__list > a {
+        margin: 0px 9px;
+    }
+
     .container.light-theme .container__image {
         background-image: url('/app/images/bg-desktop-light.jpg');
+    }
+    
+    .container.light-theme > .container__todo > form > .desktop__states {
+        background-color: var(--lt-very-light-gray);
     }
 
     :is(.container > .container__todo > form > .input__todo, 
