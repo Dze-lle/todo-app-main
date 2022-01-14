@@ -13,27 +13,15 @@ form.addEventListener('submit', (event) => {
 });
 
 const listAddTodo = value => {
-    let li = document.createElement('li');
-    let a = document.createElement('a');
-    a.setAttribute('href', "#");
-
-    let span = document.createElement('span');
-    span.classList.add('check__icon');
-
-    let i = document.createElement('i');
-    let img = document.createElement('img');
-    img.setAttribute('src', "app/images/icon-cross.svg");
-    i.appendChild(img);
-
-    a.innerText = value;
-    li.appendChild(span);
-    li.appendChild(a);
-    li.appendChild(i);
-
-    ul.appendChild(li);
-
+    const li = document.createElement('li');
+    li.innerHTML = `<span class="check__icon"></span>
+                    <a href="#">${value}</a>
+                    <i>
+                        <img src="app/images/icon-cross.svg" alt="icon-cross">
+                    </i>`;
+    ul.append(li);    
+    
     input.value = '';
-
     listTodo();
 };
 
