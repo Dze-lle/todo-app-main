@@ -87,9 +87,16 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 
 .check__icon {
     border: 1px solid var(--dt-very-dark-grayish-blue-second);
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+
 }
 
 .checked {
+    -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
     background: linear-gradient(140deg, var(--check-background-1st), var(--check-background-2st));
 }
 
