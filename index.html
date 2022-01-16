@@ -1,71 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="app/images/favicon-32x32.png">
-  <link rel="stylesheet" href="app/css/style.css">
-  
-  <title>Frontend Mentor | Todo app</title>
+		<link rel="icon" type="image/png" sizes="32x32" href="app/images/favicon-32x32.png" />
+		<link rel="stylesheet" href="app/css/style.css" />
 
-  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-  <style>
-    .attribution { font-size: 11px; text-align: center; }
-    .attribution a { color: hsl(228, 45%, 44%); }
-  </style>
-</head>
-<body>
-    <main class="container">
-      <section class="container__image"></section>
-      <section class="container__todo">
-        <div class="header__todo">
-          <h1>Todo</h1>
-          <div class="icon">
-            <img src="app/images/icon-sun.svg" alt="">
-          </div>
-        </div>
-        <form>
-          <div class="input__todo">
-            <span class="check__icon">
-              <img style="visibility: hidden;" src="app/images/icon-check.svg" alt="">
-            </span>
-            <input autocomplete="off" type="text" id="inputTodo" placeholder="Create a new todo...">
-          </div>
+		<title>Frontend Mentor | Todo app</title>
 
-          <ul id="listTodo"></ul>
+		<!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+		<style>
+			.attribution {
+				font-size: 11px;
+				text-align: center;
+			}
+			.attribution a {
+				color: hsl(228, 45%, 44%);
+			}
+		</style>
+	</head>
+	<body>
+		<main class="container">
+			<section class="container__image"></section>
+			<section class="container__todo">
+				<div class="header__todo">
+					<h1>Todo</h1>
+					<div class="icon">
+						<img src="app/images/icon-sun.svg" alt="" />
+					</div>
+				</div>
+				<form>
+					<div class="input__todo">
+						<span class="check__icon">
+							<img style="visibility: hidden" src="app/images/icon-check.svg" alt="" />
+						</span>
+						<input
+							autocomplete="off"
+							type="text"
+							id="inputTodo"
+							placeholder="Create a new todo..."
+						/>
+					</div>
 
-          <div class="list__description">
-            <span style="cursor: default;">0 items left</span>
-            <a href="#">Clear Completed</a>
-          </div>
-          <div class="list__states">
-            <a href="#">All</a>
-            <a href="#">Active</a>
-            <a href="#">Completed</a>
-          </div>
+					<ul id="listTodo"></ul>
 
-          <div class="desktop__states">
-            <span style="cursor: default;">0 items left</span>
-            <div class="states__list">
-              <a href="#">All</a>
-              <a href="#">Active</a>
-              <a href="#">Completed</a>
-            </div>
-            <a href="#">Clear Completed</a>
-          </div>
-          <h4>Drag and drop to reorder list</h4>
-        </form>
-      </section>
-      <section class="container__background"></section>
-    </main>
+					<div class="list__description">
+						<span style="cursor: default">0 items left</span>
+						<a href="#">Clear Completed</a>
+					</div>
+					<div class="list__states">
+						<a href="#">All</a>
+						<a href="#">Active</a>
+						<a href="#">Completed</a>
+					</div>
 
-    <!-- <div class="attribution">
+					<div class="desktop__states">
+						<span style="cursor: default">0 items left</span>
+						<div class="states__list">
+							<a href="#">All</a>
+							<a href="#">Active</a>
+							<a href="#">Completed</a>
+						</div>
+						<a href="#">Clear Completed</a>
+					</div>
+					<h4>Drag and drop to reorder list</h4>
+				</form>
+			</section>
+			<section class="container__background"></section>
+		</main>
+
+		<!-- <div class="attribution">
       Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
       Coded by <a href="#">Your Name Here</a>.
     </div> -->
 
-  
-  <script src="app/js/app.js"></script>
-</body>
+		<script src="app/js/app.js"></script>
+	</body>
 </html>
