@@ -77,23 +77,31 @@ const DisplayTodo = (ListTodo) => {
             }).join('');
 
     document.getElementById('listTodo').innerHTML = htmlString;
-    
-    UpdateItemLeft();
+    ItemsLength();
+
 };
 
-const UpdateItemLeft = () => {
-    let ListItems = Array.from(ul.children).map(node => node.innerText);
-        let span = desktop__states.querySelector('span');
-        let spanMobile = list__description.querySelector('span');
+const ItemsLength = (string) => {
+    let span = desktop__states.querySelector('span');
+    let spanMobile = list__description.querySelector('span');
 
-        span.innerText = `${ListItems.length} items left`;
-        spanMobile.innerText = `${ListItems.length} items left`;
+    if (string === 'Completed') {
+        let ItemCompleted = ListTodo.filter((item) => item.completed);
+        span.innerText = `${ItemCompleted.length} items completed`;
+        spanMobile.innerText = `${ItemCompleted.length} items completed`;
+    } else {
+        let ItemsLeft = ListTodo.filter((item) => !item.completed);
+        span.innerText = `${ItemsLeft.length} items left`;
+        spanMobile.innerText = `${ItemsLeft.length} items left`;
+    }
 };
+
 
 states__list.addEventListener('click', (event) => {
     switch (event.target.innerText) {
         case 'Completed':
             FilterCompleted();
+            ItemsLength('Completed');
             break;
         case 'Active':
             FilterActive();
@@ -104,16 +112,16 @@ states__list.addEventListener('click', (event) => {
 });
 
 const FilterCompleted = () => {
-    let FilterTodo = ListTodo.filter(item => item.completed === true);
-
-    DisplayTodo(FilterTodo);
+    let FilterCompleted = ListTodo.filter(item => item.completed);
+    DisplayTodo(FilterCompleted);
 };
 
 const FilterActive = () => {
-    let FilterTodo = ListTodo.filter(item => item.completed === false);
-
-    DisplayTodo(FilterTodo);
+    let FilterActive = ListTodo.filter(item => !item.completed);
+    DisplayTodo(FilterActive); 
 };
+
+
 
 
 
