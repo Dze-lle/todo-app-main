@@ -61,23 +61,19 @@ const SetTodoObj = event => {
 const DisplayTodo = ListTodo => {
 	const li = ListTodo.map(todo => {
 		return `<li>
-                <span data-id="${todo.id}" class="check__icon ${
-			todo.completed ? 'checked' : ''
-		}">
-                    <img style="visibility: hidden" 
-                    src="app/images/icon-check.svg" alt="icon-check">
-                </span>
-                <a href="#">${
-									todo.completed
-										? `<s style="color: hsl(233, 14%, 35%); font-weight: normal">${todo.text}</s>`
-										: todo.text
-								}</a>
-                <i>
-                    <img data-id="${
-											todo.id
-										}" src="app/images/icon-cross.svg" alt="icon-cross">
-                </i>
-            </li>`;
+			<span data-id="${todo.id}" class="check__icon ${todo.completed ? 'checked' : ''}">
+				<img style="visibility: hidden" 
+				src="app/images/icon-check.svg" alt="icon-check">
+			</span>
+			<a href="#">${
+				todo.completed
+					? `<s style="color: hsl(233, 14%, 35%); font-weight: normal">${todo.text}</s>`
+					: todo.text
+			}</a>
+			<i>
+				<img data-id="${todo.id}" src="app/images/icon-cross.svg" alt="icon-cross">
+			</i>
+		</li>`;
 	}).join('');
 
 	document.getElementById('listTodo').innerHTML = li;
