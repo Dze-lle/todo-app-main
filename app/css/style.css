@@ -40,6 +40,9 @@ body {
     font-size: 18px;
     margin: 0px;
     padding: 0px;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
 }
 
 a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
@@ -60,9 +63,9 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 }
 
 .container > .container__todo {
+    padding: 0px 22px;
     width: 100%;
     min-width: 376px;
-    padding: 0px 22px;
     position: absolute;
     top: 20%;
     left: 50%;
@@ -174,7 +177,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
     margin: 0px 20px;
 }
 
-.container > .container__todo > h4 {
+.container  .container__todo  h4 {
     font-size: 13px;
     text-align: center;
     margin: 44px 0px 0px 0px;
@@ -271,6 +274,17 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 @media (min-width: 376px) {
     .container > .container__todo {
         max-width: calc(540px + 44px);
+        height: 30%;
+    }
+
+    .container > .container__todo > form {
+        height: 100%;
+    }
+
+    .container > .container__todo > form > ul {
+        flex: 1;
+        overflow: auto;
+        max-height: 160%;
     }
 
     :is(.container > .container__todo > form > ul > li, 
