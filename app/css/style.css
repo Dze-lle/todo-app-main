@@ -93,7 +93,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 
 }
 
-.checked {
+.check__icon.checked {
     -moz-user-select: none;
    -khtml-user-select: none;
    -webkit-user-select: none;
@@ -130,7 +130,7 @@ a {text-decoration: none; margin: 0px; padding: 0px; font-weight: bolder;}
 }
 
 .container > .container__todo > form > ul > li > a {
-    font-weight: bold;
+    font-weight: normal;
     color: var(--dt-light-grayish-blue);
 }
 
