@@ -6,10 +6,21 @@ const list__description = document.querySelector('.list__description');
 const desktop__states = document.querySelector('.desktop__states');
 const check__icon = document.querySelector('span.check__icon');
 const states__list = document.querySelector('.states__list');
+const icon = document.querySelector('.icon');
+
+icon.addEventListener('click', () => {
+	if (!container.classList.contains('light-theme')) {
+		document.querySelector('.icon > img').src = 'app/images/icon-moon.svg';
+		container.classList.add('light-theme');
+	} else {
+		document.querySelector('.icon > img').src = 'app/images/icon-sun.svg';
+		container.classList.remove('light-theme');
+	}
+});
 
 let ListTodo = [];
 
-check__icon.addEventListener('click', event => {
+check__icon.addEventListener('click', () => {
 	if (!check__icon.classList.contains('checked')) {
 		check__icon.classList.add('checked');
 	} else {
@@ -19,40 +30,21 @@ check__icon.addEventListener('click', event => {
 
 form.addEventListener('submit', event => {
 	if (input.value === '') return;
-
 	// create an array of objects with the inputs
-	ListTodo = SetTodoObj(event);
+	ListTodo = ArrayTodo(event);
 	// display the list
 	DisplayTodo(ListTodo);
 	event.preventDefault();
 });
 
-ul.addEventListener('click', event => {
-	let CheckTodoList = ListTodo.map(obj => {
-		if (obj.id == event.target.dataset.id) {
-			if (!event.target.classList.contains('checked')) {
-				event.target.classList.add('checked');
-				obj.completed = true;
-			} else {
-				event.target.classList.remove('checked');
-				obj.completed = false;
-			}
-			obj;
-		}
-		return obj;
-	});
-
-	DisplayTodo(CheckTodoList);
-});
-
-const SetTodoObj = event => {
+const ArrayTodo = event => {
 	let eventChecked = event.target.children[0].children[0];
 	let completed;
 	eventChecked.classList.contains('checked') ? (completed = true) : (completed = false);
 
-	let id = ListTodo.length;
+	let randomId = (Math.random() + 1).toString(36).substring(2);
 
-	ListTodo.push({ completed: completed, id: id, text: input.value });
+	ListTodo.push({ completed: completed, id: randomId, text: input.value });
 	input.value = '';
 
 	return ListTodo;
@@ -95,6 +87,44 @@ const ItemsLength = string => {
 		let ItemsLeft = ListTodo.filter(item => !item.completed);
 		span.innerText = `${ItemsLeft.length} items left`;
 		spanMobile.innerText = `${ItemsLeft.length} items left`;
+	}
+};
+
+ul.addEventListener('click', event => {
+	if (event.srcElement.alt !== 'icon-cross') {
+		let CheckTodoList = ListTodo.map(obj => {
+			if (obj.id == event.target.dataset.id) {
+				if (!event.target.classList.contains('checked')) {
+					event.target.classList.add('checked');
+					obj.completed = true;
+				} else {
+					event.target.classList.remove('checked');
+					obj.completed = false;
+				}
+				obj;
+			}
+			return obj;
+		});
+
+		DisplayTodo(CheckTodoList);
+	}
+
+	DeleteItemTodo(event);
+});
+
+const DeleteItemTodo = event => {
+	if (event.srcElement.alt === 'icon-cross') {
+		let dataId = event.target.dataset.id;
+		let indexToDelete;
+
+		for (let elemento of ListTodo) {
+			if (dataId === elemento.id) {
+				indexToDelete = ListTodo.indexOf(elemento);
+			}
+		}
+
+		ListTodo.splice(indexToDelete, 1);
+		DisplayTodo(ListTodo);
 	}
 };
 
