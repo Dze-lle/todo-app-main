@@ -122,24 +122,46 @@ const DeleteItemTodo = event => {
 				indexToDelete = ListTodo.indexOf(elemento);
 			}
 		}
-
 		ListTodo.splice(indexToDelete, 1);
 		DisplayTodo(ListTodo);
 	}
 };
 
-states__list.addEventListener('click', event => {
-	switch (event.target.innerText) {
-		case 'Completed':
-			FilterCompleted();
-			ItemsLength('Completed');
-			break;
-		case 'Active':
-			FilterActive();
-			break;
-		default:
-			DisplayTodo(ListTodo);
-	}
+states__list.querySelectorAll('a').forEach(element => {
+	element.addEventListener('click', event => {
+		let current = document.getElementsByClassName('active');
+		current[0].classList.remove('active');
+		switch (event.target.innerText) {
+			case 'Completed':
+				FilterCompleted();
+				ItemsLength('Completed');
+				event.target.classList.add('active');
+				break;
+			case 'Active':
+				FilterActive();
+				event.target.classList.add('active');
+				break;
+			default:
+				DisplayTodo(ListTodo);
+				event.target.classList.add('active');
+		}
+	});
+});
+
+document.querySelectorAll('.list__states a').forEach(element => {
+	element.addEventListener('click', event => {
+		switch (event.target.innerText) {
+			case 'Completed':
+				FilterCompleted();
+				ItemsLength('Completed');
+				break;
+			case 'Active':
+				FilterActive();
+				break;
+			default:
+				DisplayTodo(ListTodo);
+		}
+	});
 });
 
 const FilterCompleted = () => {
@@ -150,4 +172,15 @@ const FilterCompleted = () => {
 const FilterActive = () => {
 	let FilterActive = ListTodo.filter(item => !item.completed);
 	DisplayTodo(FilterActive);
+};
+
+desktop__states.addEventListener('click', event => {
+	if (event.target.childNodes[0].data === 'Clear Completed') {
+		RemoveCompletedTodo();
+	}
+});
+
+const RemoveCompletedTodo = () => {
+	ListTodo = ListTodo.filter(item => !item.completed);
+	DisplayTodo(ListTodo);
 };

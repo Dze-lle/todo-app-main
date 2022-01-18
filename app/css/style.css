@@ -171,6 +171,10 @@ a {
 	justify-content: center;
 }
 
+.container > .container__todo > form > .list__states > a.active {
+	color: var(--bright-blue);
+}
+
 :is(.container a, .container .list__description span) {
 	color: var(--dt-very-dark-grayish-blue-first);
 }
@@ -287,6 +291,10 @@ a {
 
 /* mayor e igual a 376px  */
 @media (min-width: 376px) {
+	.container > .container__todo > form > .desktop__states > .states__list > a.active {
+		color: var(--bright-blue);
+	}
+
 	.container > .container__todo {
 		max-width: calc(540px + 44px);
 		height: 30%;
