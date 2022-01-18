@@ -61,7 +61,7 @@ a {
 }
 
 .container > .container__image {
-	background-image: url(/app/images/bg-mobile-dark.jpg);
+	background-image: url(../images/bg-mobile-dark.jpg);
 	background-repeat: no-repeat;
 	background-size: auto;
 	height: 100%;
@@ -239,7 +239,7 @@ li.dragging {
 }
 
 .container.light-theme > .container__image {
-	background-image: url(/app/images/bg-mobile-light.jpg);
+	background-image: url(../images/bg-mobile-light.jpg);
 }
 
 .container.light-theme > .container__todo > .header__todo > h1 {
@@ -323,7 +323,7 @@ li.dragging {
 	}
 
 	.container .container__image {
-		background-image: url(/app/images/bg-desktop-dark.jpg);
+		background-image: url(../images/bg-desktop-dark.jpg);
 	}
 
 	.container > .container__todo > form > .desktop__states {
@@ -344,7 +344,7 @@ li.dragging {
 	}
 
 	.container.light-theme .container__image {
-		background-image: url(/app/images/bg-desktop-light.jpg);
+		background-image: url(../images/bg-desktop-light.jpg);
 	}
 
 	.container.light-theme > .container__todo > form > .desktop__states {
