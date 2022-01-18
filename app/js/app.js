@@ -53,7 +53,7 @@ const ArrayTodo = event => {
 const DisplayTodo = ListTodo => {
 	const li = ListTodo.map(todo => {
 		return `
-		<li draggable="true">
+		<li data-li="${todo.id}" draggable="true">
 			<span data-id="${todo.id}" class="check__icon ${todo.completed ? 'checked' : ''}">
 				<img style="visibility: hidden" 
 				src="app/images/icon-check.svg" alt="icon-check">
@@ -194,6 +194,16 @@ const DraggableProccess = () => {
 
 		li.addEventListener('dragend', () => {
 			li.classList.remove('dragging');
+
+			// move the values into the array based on the drag and drop that we just did
+			Array.from(document.querySelectorAll('li')).map((item, index) => {
+				let id = item.getAttribute('data-li');
+				ListTodo.map((todo, todoIndex) => {
+					if (todo.id === id) {
+						ListTodo.splice(index, 0, ListTodo.splice(todoIndex, 1)[0]);
+					}
+				});
+			});
 		});
 	});
 
@@ -211,7 +221,6 @@ const DraggableProccess = () => {
 
 	const getDragAfterElement = (ul, y) => {
 		const draggableElement = [...ul.querySelectorAll('li:not(.dragging)')];
-
 		return draggableElement.reduce(
 			(closest, child) => {
 				const box = child.getBoundingClientRect();
