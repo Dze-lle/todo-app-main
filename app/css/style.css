@@ -199,6 +199,10 @@ a {
 	display: none;
 }
 
+li.dragging {
+	opacity: 0.5;
+}
+
 /* elmentos que tienen las mismas propiedades */
 /* input__todo and li */
 :is(.container > .container__todo > form > .input__todo, .container

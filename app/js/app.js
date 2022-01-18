@@ -53,7 +53,7 @@ const ArrayTodo = event => {
 const DisplayTodo = ListTodo => {
 	const li = ListTodo.map(todo => {
 		return `
-		<li>
+		<li draggable="true">
 			<span data-id="${todo.id}" class="check__icon ${todo.completed ? 'checked' : ''}">
 				<img style="visibility: hidden" 
 				src="app/images/icon-check.svg" alt="icon-check">
@@ -73,6 +73,7 @@ const DisplayTodo = ListTodo => {
 
 	document.getElementById('listTodo').innerHTML = li;
 	ItemsLength();
+	DraggableProccess();
 };
 
 const ItemsLength = string => {
@@ -108,7 +109,6 @@ ul.addEventListener('click', event => {
 
 		DisplayTodo(CheckTodoList);
 	}
-
 	DeleteItemTodo(event);
 });
 
@@ -183,4 +183,46 @@ desktop__states.addEventListener('click', event => {
 const RemoveCompletedTodo = () => {
 	ListTodo = ListTodo.filter(item => !item.completed);
 	DisplayTodo(ListTodo);
+};
+
+const DraggableProccess = () => {
+	const lis = document.querySelectorAll('li');
+	lis.forEach(li => {
+		li.addEventListener('dragstart', () => {
+			li.classList.add('dragging');
+		});
+
+		li.addEventListener('dragend', () => {
+			li.classList.remove('dragging');
+		});
+	});
+
+	ul.addEventListener('dragover', event => {
+		event.preventDefault();
+		const afterElment = getDragAfterElement(ul, event.clientY);
+		const draggable = document.querySelector('.dragging');
+
+		if (afterElment == null) {
+			ul.appendChild(draggable);
+		} else {
+			ul.insertBefore(draggable, afterElment);
+		}
+	});
+
+	const getDragAfterElement = (ul, y) => {
+		const draggableElement = [...ul.querySelectorAll('li:not(.dragging)')];
+
+		return draggableElement.reduce(
+			(closest, child) => {
+				const box = child.getBoundingClientRect();
+				const offset = y - box.top - box.height / 2;
+				if (offset < 0 && offset > closest.offset) {
+					return { offset: offset, element: child };
+				} else {
+					return closest;
+				}
+			},
+			{ offset: Number.NEGATIVE_INFINITY },
+		).element;
+	};
 };
