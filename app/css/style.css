@@ -111,6 +111,18 @@ a {
 	);
 }
 
+.check__icon.checked::after {
+	content: '';
+	background-image: url(../images/icon-check.svg);
+	background-repeat: no-repeat;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	top: 0.75rem;
+	left: 0.7rem;
+	transform: translate(-0.5rem, -0.5rem);
+}
+
 .container > .container__todo > form > .input__todo > input {
 	font-family: inherit;
 	background-color: transparent;
