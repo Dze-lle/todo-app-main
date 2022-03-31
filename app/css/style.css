@@ -203,7 +203,7 @@ a {
 	margin: 0px 20px;
 }
 
-.container .container__todo h4 {
+.container .container__todo h2 {
 	font-size: 13px;
 	text-align: center;
 	margin: 44px 0px 0px 0px;
@@ -273,7 +273,7 @@ li.dragging {
 	color: var(--dt-very-dark-grayish-blue-second) !important;
 }
 
-.container.light-theme h4 {
+.container.light-theme h2 {
 	color: var(--lt-dark-grayish-blue) !important;
 }
 
