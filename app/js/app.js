@@ -4,18 +4,59 @@ const list = document.querySelector('ul');
 const form = document.querySelector('form');
 const checkIcon = document.querySelector('span.check__icon');
 const clearCompleted = document.querySelector('.desktop__states > a');
+const filterStates = document.querySelectorAll('.states__list > a');
 
 checkIcon.addEventListener('click', toggleCheck);
 
-form.addEventListener('submit', addTodo);
-
 clearCompleted.addEventListener('click', deleteTodoCompleted);
 
-window.addEventListener('DOMContentLoaded', setTodos);
+form.addEventListener('submit', addTodo);
+
+window.addEventListener('DOMContentLoaded', function() {
+    setUpTodos();
+});
+
+function setUpTodos() {
+    let todosItems = getLocalStorage();
+    if (todosItems.length > 0) {
+        displayTodos(todosItems);
+    };
+};
 
 function toggleCheck() {
    checkIcon.classList.toggle('checked');
 };
+
+function displayTodos(todos) {
+    const stringHtml = todos.map(todo => {
+        return `<li data-id="${todo.id}" draggable="true">
+                    <span class="check__icon ${todo.state ? 'checked' : ''}">
+                    <img style="visibility: hidden" 
+                    src="app/images/icon-check.svg" alt="icon-check">
+                    </span>
+                    <a href="#" ${todo.state ? 'style="color: hsl(233, 14%, 35%); font-weight: normal; text-decoration: line-through;"': ''}>
+                        ${todo.value}
+                    </a>
+                    <i>
+                        <img src="app/images/icon-cross.svg" alt="icon-cross">
+                    </i>
+                </li>`;
+    }).join('');
+
+    list.innerHTML = stringHtml;
+
+    const deleteElement = list.querySelectorAll('li i');
+    deleteElement.forEach(element => {
+        element.addEventListener('click', deleteTodo);
+    });
+
+    const spanChecked = list.querySelectorAll('li .check__icon');
+    spanChecked.forEach(span => {
+        span.addEventListener('click', changeCheckedElement)
+    });
+    ItemsLeft();
+}
+
 
 // CRUD
 function addTodo(e) {
@@ -24,38 +65,12 @@ function addTodo(e) {
 
     if (value !== '') {
         let id = new Date().getTime().toString();
-        let stateCheck = e.currentTarget.children[0].children[0].classList.contains('checked');
-
-        let li = document.createElement('li');
-        li.setAttribute('data-id', id);
-        li.setAttribute('draggable', true);
-        
-        const stringHtml = `<span class="check__icon ${stateCheck ? 'checked' : ''}">
-                    <img style="visibility: hidden" 
-                    src="app/images/icon-check.svg" alt="icon-check">
-                    </span>
-                    <a href="#" ${stateCheck ? 'style="color: hsl(233, 14%, 35%); font-weight: normal; text-decoration: line-through;"': ''}>
-                        ${value}
-                    </a>
-                    <i>
-                        <img src="app/images/icon-cross.svg" alt="icon-cross">
-                    </i>`;
-
-        li.innerHTML = stringHtml;
-
-        const deleteElement = li.querySelector('i');
-        deleteElement.addEventListener('click', deleteTodo);
-
-        const spanChecked = li.querySelector('.check__icon');
-        spanChecked.addEventListener('click', changeCheckedElement)
-
-
-        list.appendChild(li);
-        addTodoToLocalStorage(id, value, stateCheck);
+        let stateBoolean = e.currentTarget.children[0].children[0].classList.contains('checked');
+        addTodoToLocalStorage(id, value, stateBoolean);
         setResetInput();
-        ItemsLeft();
     }
 };
+
 
 function deleteTodo(e) {
     let element = e.currentTarget.parentElement;
@@ -63,6 +78,7 @@ function deleteTodo(e) {
 
     list.removeChild(element);
     removeTodoToLocalStorage(id);
+    ItemsLeft();
 };
 
 function deleteTodoCompleted() {
@@ -115,7 +131,9 @@ function addTodoToLocalStorage(id, value, state) {
     let todosItems = getLocalStorage();
     todosItems.push(objTodo);
 
-    localStorage.setItem('todos', JSON.stringify(todosItems))
+    localStorage.setItem('todos', JSON.stringify(todosItems));
+
+    displayTodos(todosItems);
 };
 
 function updateStateToLocalStorage(id, currentState) {
@@ -127,6 +145,7 @@ function updateStateToLocalStorage(id, currentState) {
         }
         return todo;
     });
+
     localStorage.setItem('todos', JSON.stringify(todosItems));
 };
 
@@ -158,45 +177,40 @@ function ItemsLeft() {
     }
 };
 
-// DOM 
-function setTodos() {
-    let todosItems = getLocalStorage();
-
-    if (todosItems.length > 0) {
-        todosItems.forEach(todo => {
-            loadedContent(todo.id, todo.value, todo.state);
+filterStates.forEach(filterState => {
+    filterState.addEventListener('click', () => {
+        filterStates.forEach(item => {
+            if (item !== filterState) {
+                item.classList.remove('active');
+            }
         });
-    };
-};
-
-function loadedContent(id, value, state) {
-    let li = document.createElement('li');
-    li.setAttribute('data-id', id);
-    li.setAttribute('draggable', true);
-
-    const stringHtml = `<span class="check__icon ${state ? 'checked' : ''}">
-                <img style="visibility: hidden" 
-                src="app/images/icon-check.svg" alt="icon-check">
-                </span>
-                <a href="#" ${state ? 'style="color: hsl(233, 14%, 35%); font-weight: normal; text-decoration: line-through;"': ''}>
-                    ${value}
-                </a>
-                <i>
-                    <img src="app/images/icon-cross.svg" alt="icon-cross">
-                </i>`;
-
-    li.innerHTML = stringHtml;
-
-    const deleteElement = li.querySelector('i');
-    deleteElement.addEventListener('click', deleteTodo);
-
-    const spanChecked = li.querySelector('.check__icon');
-    spanChecked.addEventListener('click', changeCheckedElement)
-
-    list.appendChild(li);
-    ItemsLeft();
-};
+        filterState.classList.toggle('active');
 
 
+        switch (filterState.textContent.trim()) {
+			case 'Completed':
+				FilterCompleted();
+				break;
+			case 'Active':
+				FilterActive();
+				break;
+			default:
+                let todosItems = getLocalStorage();
+                    if (todosItems.length > 0) {
+                        displayTodos(todosItems);
+                    };
+            }
+    });
+});
 
+function FilterCompleted() {
+    let todosItems = getLocalStorage();
+    todosItems = todosItems.filter(todo => !!todo.state);
+    displayTodos(todosItems);
+}
 
+function FilterActive() {
+    let todosItems = getLocalStorage();
+    todosItems = todosItems.filter(todo => !todo.state);
+    displayTodos(todosItems);
+}
