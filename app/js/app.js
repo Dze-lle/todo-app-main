@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', setTodos);
 
 function toggleCheck() {
    checkIcon.classList.toggle('checked');
-}
+};
 
 // CRUD
 function addTodo(e) {
@@ -23,9 +23,7 @@ function addTodo(e) {
     let value = todo.value;
 
     if (value !== '') {
-
         let id = new Date().getTime().toString();
-
         let stateCheck = e.currentTarget.children[0].children[0].classList.contains('checked');
 
         let li = document.createElement('li');
@@ -55,6 +53,7 @@ function addTodo(e) {
         list.appendChild(li);
         addTodoToLocalStorage(id, value, stateCheck);
         setResetInput();
+        ItemsLeft();
     }
 };
 
@@ -84,6 +83,7 @@ function deleteTodoCompleted() {
     todosItems = todosItems.filter(todo => !todo.state);
 
     localStorage.setItem('todos', JSON.stringify(todosItems));
+    ItemsLeft();
 };
 
 function changeCheckedElement(e) {
@@ -99,8 +99,8 @@ function changeCheckedElement(e) {
     } else {
         e.currentTarget.nextSibling.nextSibling.style.cssText = `font-weight: normal;`;
     }
-
     updateStateToLocalStorage(id, currentState);
+    ItemsLeft();
 };
 
 // local Storage
@@ -127,7 +127,6 @@ function updateStateToLocalStorage(id, currentState) {
         }
         return todo;
     });
-
     localStorage.setItem('todos', JSON.stringify(todosItems));
 };
 
@@ -139,18 +138,25 @@ function removeTodoToLocalStorage(id) {
             return todo;
         }
     });
-
     localStorage.setItem('todos', JSON.stringify(todosItems));
 };
 
 function setResetInput() {
     todo.value = '';
-
     if (checkIcon.classList.contains('checked')) {
         checkIcon.classList.remove('checked');
     }
 };
 
+function ItemsLeft() {
+    let todosItems = getLocalStorage();
+    const span = document.querySelector('.desktop__states > span');
+    if (todosItems.length > 0) {
+        span.innerHTML = `${todosItems.filter(todo => !todo.state).length} items left`;
+    } else {
+        span.innerHTML = `0 items left`;
+    }
+};
 
 // DOM 
 function setTodos() {
@@ -188,6 +194,7 @@ function loadedContent(id, value, state) {
     spanChecked.addEventListener('click', changeCheckedElement)
 
     list.appendChild(li);
+    ItemsLeft();
 };
 
 
