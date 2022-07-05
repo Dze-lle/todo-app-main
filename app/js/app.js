@@ -5,15 +5,20 @@ const form = document.querySelector('form');
 const checkIcon = document.querySelector('span.check__icon');
 const clearCompleted = document.querySelector('.desktop__states > a');
 const filterStates = document.querySelectorAll('.states__list > a');
+const icon = document.querySelector('.icon');
 
 checkIcon.addEventListener('click', toggleCheck);
 
 clearCompleted.addEventListener('click', deleteTodoCompleted);
 
+icon.addEventListener('click', changeTheme);
+
 form.addEventListener('submit', addTodo);
 
 window.addEventListener('DOMContentLoaded', function() {
     setUpTodos();
+    loadTheme();
+    loadState();
 });
 
 function setUpTodos() {
@@ -25,6 +30,32 @@ function setUpTodos() {
 
 function toggleCheck() {
    checkIcon.classList.toggle('checked');
+};
+
+function changeTheme() {
+    if (!container.classList.contains('light-theme')) {
+		document.querySelector('.icon > img').src = 'app/images/icon-moon.svg';
+		container.classList.add('light-theme');
+	} else {
+		document.querySelector('.icon > img').src = 'app/images/icon-sun.svg';
+		container.classList.remove('light-theme');
+	}
+
+    const iterator = container.classList.values();
+    const iconTheme = icon.children[0].attributes[0].value;
+
+    for(let pageTheme of iterator) {
+        localStorage.setItem('theme', JSON.stringify([{ pageTheme, iconTheme }]));
+    }
+};
+
+function loadTheme() {
+    const themes = JSON.parse(localStorage.getItem('theme'));
+    
+    themes.map(items => {
+        document.querySelector('.icon > img').src = items.iconTheme;
+		container.classList.add(items.pageTheme);
+    });
 };
 
 function displayTodos(todos) {
@@ -68,6 +99,18 @@ function addTodo(e) {
         let stateBoolean = e.currentTarget.children[0].children[0].classList.contains('checked');
         addTodoToLocalStorage(id, value, stateBoolean);
         setResetInput();
+
+        filterStates.forEach(item => {
+            if (item.textContent !== 'All') {
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                }
+            } else {
+                if (!item.classList.contains('active')) {
+                    item.classList.add('active');
+                }
+            }
+        });
     }
 };
 
@@ -195,13 +238,30 @@ filterStates.forEach(filterState => {
 				FilterActive();
 				break;
 			default:
-                let todosItems = getLocalStorage();
-                    if (todosItems.length > 0) {
-                        displayTodos(todosItems);
-                    };
-            }
+                FilterAll();
+        }
+
+        localStorage.setItem('previousState', filterState.textContent.trim());
     });
 });
+
+function loadState() {
+    const state = localStorage.getItem('previousState');
+
+    filterStates.forEach(item => {
+        item.textContent.trim() === state
+        ? item.classList.toggle('active')
+        : item.classList.remove('active')
+    });
+
+    if (state === 'Completed') {
+        FilterCompleted();
+    } else if (state === 'Active') {
+        FilterActive();
+    } else {
+        FilterAll();
+    }
+}
 
 function FilterCompleted() {
     let todosItems = getLocalStorage();
@@ -214,3 +274,14 @@ function FilterActive() {
     todosItems = todosItems.filter(todo => !todo.state);
     displayTodos(todosItems);
 }
+
+function FilterAll() {
+    let todosItems = getLocalStorage();
+    
+    if (todosItems.length > 0) {
+        displayTodos(todosItems);
+    };
+};
+
+
+//draggable 
