@@ -52,11 +52,15 @@ function changeTheme() {
 
 function loadTheme() {
     const themes = JSON.parse(localStorage.getItem('theme'));
-    
-    themes.map(items => {
-        document.querySelector('.icon > img').src = items.iconTheme;
-		container.classList.add(items.pageTheme);
-    });
+
+    if (themes === null) return;
+
+    if (themes.length > 0) {
+        themes.map(items => {
+            document.querySelector('.icon > img').src = items.iconTheme;
+            container.classList.add(items.pageTheme);
+        });
+    }
 };
 
 function displayTodos(todos) {
@@ -251,18 +255,22 @@ filterStates.forEach(filterState => {
 function loadState() {
     const state = localStorage.getItem('previousState');
 
-    filterStates.forEach(item => {
-        item.textContent.trim() === state.trim()
-        ? item.classList.toggle('active')
-        : item.classList.remove('active')
-    });
+    if (state == null) return;
 
-    if (state === 'Completed') {
-        FilterCompleted();
-    } else if (state === 'Active') {
-        FilterActive();
-    } else {
-        FilterAll();
+    if (state.length > 0) {
+        filterStates.forEach(item => {
+            item.textContent.trim() === state.trim()
+            ? item.classList.toggle('active')
+            : item.classList.remove('active')
+        });
+    
+        if (state === 'Completed') {
+            FilterCompleted();
+        } else if (state === 'Active') {
+            FilterActive();
+        } else {
+            FilterAll();
+        }
     }
 }
 
