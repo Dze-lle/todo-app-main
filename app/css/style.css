@@ -54,6 +54,10 @@ a {
 	font-weight: bolder;
 }
 
+ul > li a {
+	width: 440px;
+}
+
 /* contenido general */
 .container {
 	position: relative;
@@ -212,6 +216,7 @@ a {
 
 .container > .container__todo > form > .desktop__states {
 	display: none;
+	user-select: none;
 }
 
 li.dragging {

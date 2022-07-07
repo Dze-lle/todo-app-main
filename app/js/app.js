@@ -6,6 +6,7 @@ const checkIcon = document.querySelector('span.check__icon');
 const clearCompleted = document.querySelector('.desktop__states > a');
 const filterStates = document.querySelectorAll('.states__list > a');
 const icon = document.querySelector('.icon');
+const ul = document.querySelector('ul');
 
 checkIcon.addEventListener('click', toggleCheck);
 
@@ -86,6 +87,8 @@ function displayTodos(todos) {
         span.addEventListener('click', changeCheckedElement)
     });
     ItemsLeft();
+
+    DraggableProccess();
 }
 
 
@@ -249,7 +252,7 @@ function loadState() {
     const state = localStorage.getItem('previousState');
 
     filterStates.forEach(item => {
-        item.textContent.trim() === state
+        item.textContent.trim() === state.trim()
         ? item.classList.toggle('active')
         : item.classList.remove('active')
     });
@@ -283,5 +286,59 @@ function FilterAll() {
     };
 };
 
+// logic draggable 
+const DraggableProccess = () => {
+    const lis = document.querySelectorAll('li');
 
-//draggable 
+
+    lis.forEach(li => {
+        li.addEventListener('dragstart', () => {
+            li.classList.add('dragging');
+        });
+
+        li.addEventListener('dragend', () => {
+            li.classList.remove('dragging');
+            let todosItems = getLocalStorage();
+
+            Array.from(document.querySelectorAll('li')).map((item, idx) => {
+                let id = item.getAttribute('data-id');
+                todosItems.map((todo, idxTodo) => {
+                    if (todo.id === id) {
+                        todosItems.splice(idx, 0, todosItems.splice(idxTodo, 1)[0]);
+                    }
+                });
+            });
+            
+            localStorage.setItem('todos', JSON.stringify(todosItems));
+        });
+    });
+
+    ul.addEventListener('dragover', event => {
+        event.preventDefault();
+        const afterElment = getDragAfterElement(ul, event.clientY);
+        const draggable = document.querySelector('.dragging');
+
+        if (afterElment == null) {
+            ul.appendChild(draggable);
+        } else {
+            ul.insertBefore(draggable, afterElment);
+        }
+    });
+
+    const getDragAfterElement = (ul, y) => {
+        const draggableElement = [...ul.querySelectorAll('li:not(.dragging)')];
+        return draggableElement.reduce(
+            (closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            },
+            { offset: Number.NEGATIVE_INFINITY },
+        ).element;
+    };
+};
+
