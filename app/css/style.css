@@ -256,10 +256,12 @@ li.dragging {
 /* ligth theme  */
 .container.light-theme {
 	background-color: var(--lt-very-light-grayish-blue);
+	background-size: contain;
 }
 
 .container.light-theme > .container__image {
 	background-image: url(../images/bg-mobile-light.jpg);
+	background-size: contain;
 }
 
 .container.light-theme > .container__todo > .header__todo > h1 {
